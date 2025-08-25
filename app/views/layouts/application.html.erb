@@ -44,8 +44,18 @@
       </div>
     </header>
     <main>
-      <div class="containter-two-thirds">
-        <%= yield %>
+      <div class="container-two-thirds">
+        <div class="text-success">
+          <%= notice %>
+        </div>
+
+        <div class="text-danger">
+          <%= alert %>
+        </div>
+        
+        <div class="containter-two-thirds">
+          <%= yield %>
+        </div>
       </div>
     </main>
     <footer class="text-center">
