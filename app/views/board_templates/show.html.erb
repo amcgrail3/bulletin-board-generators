@@ -14,9 +14,10 @@
   <div class="overflow-auto">
     <table>
       <thead>
-        <th>Title<th>
-        <th>Expires on<th>
-        <th>Posted on<th>
+        <th>Title</th>
+        <th>Body</th>
+        <th>Expires on</th>
+        <th>Posted on</th>
       </thead>
 
       <% active_listings = @the_board.listings.where({ :expires_on => (Date.today...)})%>
@@ -33,11 +34,11 @@
             </td>
 
             <td>
-              <%= a_listing.expires_on %>
+              <%= a_listing.expires_on.strftime("%b %e, %Y") %>
             </td>
 
             <td>
-              <%= a_listing.created_at %>
+              <%= a_listing.created_at.strftime("%b %e, %Y") %>
             </td>
           </tr>
         <% end %>
@@ -48,15 +49,54 @@
 
 <article>
   <header>
+    Add a new listing
+  </header>
+
+  <form action="/insert_listing" method="post">
+    <div>
+      <label for="title_box">
+        Title
+      </label>
+
+      <input type="text" id="title_box" name="query_title">
+    </div>
+
+    <div>
+      <label for="body_box">
+        Body
+      </label>
+
+      <textarea name = "query_body" id="body_box"></textarea>
+    </div>
+
+    <div>
+      <label for="expires_on_box">
+        Expires on
+      </label>
+
+      <input type="date" id="expires_on_box" name="query_expires_on">
+    </div>
+
+      <input value="<%= @the_board.id%>" type="hidden" id="board_id_box" name="query_board_id">
+
+    <button type="submit">
+      Create listing
+    </button>
+  </form>
+</article>
+
+<article>
+  <header>
     Expired listings
   </header>
 
   <div class="overflow-auto">
     <table>
       <thead>
-        <th>Title<th>
-        <th>Expires on<th>
-        <th>Posted on<th>
+        <th>Title</th>
+        <th>Body</th>
+        <th>Expires on</th>
+        <th>Posted on</th>
       </thead>
 
       <% expired_listings = @the_board.listings.where({ :expires_on => (...Date.today)}) %>
@@ -73,11 +113,11 @@
             </td>
 
             <td>
-              <%= a_listing.expires_on %>
+              <%= a_listing.expires_on.strftime("%b %e, %Y") %>
             </td>
 
             <td>
-              <%= a_listing.created_at %>
+              <%= a_listing.created_at.strftime("%b %e, %Y") %>
             </td>
           </tr>
         <% end %>
